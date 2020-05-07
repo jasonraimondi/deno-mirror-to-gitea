@@ -10,7 +10,7 @@ Pass in the required fields `GITEA_ACCESS_TOKEN` and `GITHUB_ACCESS_TOKEN`. The 
 
 ```
 deno run --allow-net --allow-read main.ts \
-    --GITEA_API_URL="http://theserver.localdomain:3000/api/v1/"
+    --GITEA_API_URL="http://localhost:3000/api/v1/"
     --GITEA_ACCESS_TOKEN=""
     --GITHUB_ACCESS_TOKEN=""
     jasonraimondi adamwathan wesbos
@@ -20,7 +20,7 @@ Or use docker!
 
 ```
 docker run --rm jasonraimondi/deno-mirror-to-gitea \
-    --GITEA_API_URL="http://theserver.localdomain:3000/api/v1/"
+    --GITEA_API_URL="http://localhost:3000/api/v1/"
     --GITEA_ACCESS_TOKEN=""
     --GITHUB_ACCESS_TOKEN=""
     jasonraimondi adamwathan wesbos
