@@ -19,7 +19,7 @@ deno run --allow-net --allow-read main.ts \
 Or use docker!
 
 ```
-docker run --rm jasonraimondi/gitea-sync \
+docker run --rm jasonraimondi/deno-mirror-to-gitea \
     --GITEA_API_URL="http://theserver.localdomain:3000/api/v1/"
     --GITEA_ACCESS_TOKEN=""
     --GITHUB_ACCESS_TOKEN=""
