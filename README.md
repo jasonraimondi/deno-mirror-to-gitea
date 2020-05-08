@@ -4,6 +4,10 @@ Bulk add mirror repositories to a Gitea instance by scraping repositories on Git
 
 Mirror repositories are kept up to date automatically by Gitea.
 
+## Why?
+
+I am a [data hoarder](https://www.reddit.com/r/DataHoarder/).
+
 ## Usage
 
 Pass in the required fields `GITEA_ACCESS_TOKEN` and `GITHUB_ACCESS_TOKEN`. The default value for `GITEA_API_URL` is listed below, point to your gitea repository.
