@@ -2,7 +2,7 @@ FROM hayd/alpine-deno
 
 WORKDIR /app
 
-COPY . /app
+COPY src /app
 
 RUN deno bundle main.ts bundle.js
 
