@@ -8,5 +8,7 @@ export const env = {
   REPOS: false,
   CONTRIBUTED_TO: false,
   STARRED: false,
+  FETCH_FOLLOWING: false,
+  GO_MODE: false,
   ...parse(Deno.args),
 };

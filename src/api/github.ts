@@ -10,13 +10,11 @@ type RepositoryQueryType =
 const repositoryQuery = (queryType: RepositoryQueryType) => (
   `query ($userLogin: String!, $cursor: String) {
   user(login: $userLogin) {
-    ${queryType}(first:100,after:$cursor) {
+    ${queryType}(first:10,after:$cursor) {
       totalCount
       pageInfo {
-        startCursor
         endCursor
         hasNextPage
-        hasPreviousPage
       }
       edges {
         node {
@@ -28,12 +26,54 @@ const repositoryQuery = (queryType: RepositoryQueryType) => (
 }`
 );
 
-async function* convertArray(fileArray: string[]) {
-  for (let repo of fileArray) {
-    const [username, repository] = repo.split("/");
-    const response = await createMigrationFromGithub(username, repository);
-    yield [repo, response?.status === 201 ? "success" : "fail"];
+const followingQuery =
+  `query ($userLogin: String!, $cursor: String) {
+  user(login: $userLogin) {
+    following(first:10,after:$cursor) {
+      totalCount
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+      edges {
+        node {
+          login
+        }
+      }
+    }
   }
+}`;
+
+async function addMirrorForRepo(repoWithUsername: string) {
+  const [username, repository] = repoWithUsername.split("/");
+  if (env.GO_MODE.toString() === "true") {
+    const response = await createMigrationFromGithub(username, repository);
+    return [repoWithUsername, response?.status === 201 ? "success" : "fail"];
+  }
+  console.log("TEST_MODE", username, repository);
+  return [username, repository];
+}
+
+export async function* paginateFollowing(username: string | number) {
+  let cursor: string | undefined = undefined;
+  let hasNextPage = false;
+
+  do {
+    const variables = { userLogin: username, cursor };
+    const response = await githubClient(followingQuery, variables);
+    const jsonResponse = await response.json();
+
+    const { totalCount, pageInfo, edges }: any = jsonResponse?.data?.user?.following;
+    console.log({ totalCount });
+
+    const users = edges.map(({ node }: any) => node.login);
+    cursor = pageInfo.endCursor;
+
+    for (const user of users) {
+      yield user;
+    }
+    hasNextPage = pageInfo.hasNextPage;
+  } while (hasNextPage);
 }
 
 async function* paginateRepositories(
@@ -55,27 +95,33 @@ async function* paginateRepositories(
     const repositories = edges.map(({ node }: any) => node.nameWithOwner);
     cursor = pageInfo.endCursor;
 
-    for await (const result of convertArray(repositories)) {
-      yield result;
+    for (const repo of repositories) {
+      yield repo;
     }
     hasNextPage = pageInfo.hasNextPage;
+    await sleep(2500);
   } while (hasNextPage);
 }
 
-export async function spiderGitHubUser(username: any) {
-  if (env.STARRED === true) {
+export async function spiderGitHubUser(username: string | number) {
+  if (env.STARRED.toString() === "true") {
     const queryType = "starredRepositories";
-    for await (const result of paginateRepositories(username, queryType)) {
+    for await (const repo of paginateRepositories(username, queryType)) {
+      await addMirrorForRepo(repo);
     }
   }
-  if (env.REPOS === true) {
+  if (env.REPOS.toString() === "true") {
     const queryType = "repositories";
-    for await (const result of paginateRepositories(username, queryType)) {
+    for await (const repo of paginateRepositories(username, queryType)) {
+      await addMirrorForRepo(repo);
     }
   }
-  if (env.CONTRIBUTED_TO === true) {
+  if (env.CONTRIBUTED_TO.toString() === "true") {
     const queryType = "repositoriesContributedTo";
-    for await (const result of paginateRepositories(username, queryType)) {
+    for await (const repo of paginateRepositories(username, queryType)) {
+      await addMirrorForRepo(repo);
     }
   }
 }
+
+const sleep = (ms: number) => new Promise((resolve, reject) => setTimeout(resolve, ms));
