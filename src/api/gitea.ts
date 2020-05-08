@@ -1,4 +1,4 @@
-import { giteaClient } from "./client.js";
+import { giteaClient } from "../client.ts";
 import { blue, red } from "https://deno.land/std/fmt/colors.ts";
 
 type Fields = {

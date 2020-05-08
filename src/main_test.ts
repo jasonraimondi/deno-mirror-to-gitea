@@ -1,7 +1,7 @@
 const { test } = Deno;
 import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
 
-import { mergeBody } from "./gitea_api.js";
+import { mergeBody } from "./api/gitea.js";
 
 test("mergeBody", function (): void {
   const result = mergeBody({
