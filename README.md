@@ -1,8 +1,6 @@
 # Deno Mirror to Gitea
 
-![](https://img.shields.io/docker/pulls/jasonraimondi/deno-mirror-to-gitea?style=flat-square)
-
-![](https://img.shields.io/docker/cloud/build/jasonraimondi/deno-mirror-to-gitea?style=flat-square)
+![](https://img.shields.io/docker/pulls/jasonraimondi/deno-mirror-to-gitea?style=flat-square) ![](https://img.shields.io/docker/cloud/build/jasonraimondi/deno-mirror-to-gitea?style=flat-square)
 
 Bulk add mirror repositories to a Gitea instance by scraping repositories on GitHub. 
 
