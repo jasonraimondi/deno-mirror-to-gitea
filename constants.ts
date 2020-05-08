@@ -5,5 +5,8 @@ export const env = {
   GITEA_API_URL: "http://localhost:3000/api/v1",
   GITEA_ACCESS_TOKEN: "",
   GITHUB_ACCESS_TOKEN: "",
+  REPOS: true,
+  CONTRIBUTED_TO: false,
+  STARRED: false,
   ...parse(Deno.args),
 };
