@@ -4,7 +4,7 @@ import { blue, red } from "https://deno.land/std/fmt/colors.ts";
 type Fields = {
   repo_name: string;
   clone_addr: string;
-  uid: number;
+  uid: number|string;
   auth_password?: string;
   auth_username?: string;
   description?: string;
@@ -55,7 +55,7 @@ export const createMigrationFromGithub = async (user: string, repo: string): Pro
       console.log(blue(`repo created (${user}/${repo})`));
       return res;
     })
-    .catch((_) => {
+    .catch((_: any) => {
       return undefined;
     });
 };
