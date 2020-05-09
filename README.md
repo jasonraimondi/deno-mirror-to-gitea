@@ -17,13 +17,21 @@ I am a [data hoarder](https://www.reddit.com/r/DataHoarder/).
 
 Pass in the required fields `GITEA_ACCESS_TOKEN` and `GITHUB_ACCESS_TOKEN`. The default value for `GITEA_API_URL` is listed below, point to your gitea repository.
 
-There are three options for scraping:
+### Runtime options
 
-* Add `--STARRED=true` to mirror the users starred repos
-* Add `--REPOS=true` to mirror the users public repos
-* Add `--CONTRIBUTED_TO=true` to mirror any repo the user has contributed to
+| Name           | Default Value | Description |
+|----------------|---------------| ------------|
+|STARRED         | false         | mirror the users starred repos |
+|REPOS           | false         | mirror the users public repos |
+|CONTRIBUTED_TO  | false         | mirror any repo the user has contributed to  |
+|FETCH_FOLLOWING | false         | grab all users you are following, and fetch STARRED/CONTRIUBTED_TO/REPOS based on enabled fields, only traverses 1 depth|
+|GO_MODE         | false         | disable sandbox/test-mode and migrate the repos|
 
-By passing in a username list of `jasonraimondi adamwathan wesbos`, **deno-mirror-to-gitea** will fetch and add the mirror repos from each user depending on the `--STARRED=true, --REPOS=true, --CONTRIBUTED_TO=true` flags. 
+For the full list of passable runtime variables are located in [constants.ts](./src/constants.ts)
+
+By passing in a username list of `jasonraimondi adamwathan wesbos`, **deno-mirror-to-gitea** will fetch and add the mirror repos from each user depending on the `--STARRED=true, --REPOS=true, --CONTRIBUTED_TO=true, --FETCH_FOLLOWING=true` flags. In this case, we would be grabbing all of the repos, starred repos, and contributed repos for jasonraimondi, adamwathan, and wesbos. Then we would fetch all of the users that these three are following, and mirror every repo, starred, and contributed to for the users we are following.  
+
+**Note: when using `--FETCH_FOLLOWING=true` in combination with the `--STARRED=true --REPOS=true and --CONTRIBUTED_TO=true`, it is going to exponentially increase the amount of repos you are mirroring**
 
 ```
 deno run --allow-net --allow-read main.ts \
