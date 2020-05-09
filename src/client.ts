@@ -33,5 +33,4 @@ export const githubClient = (
     body: JSON.stringify({ query, variables }),
   });
 
-export const giteaClient = (url: string, request?: RequestInit) =>
-  client(`${env.GITEA_API_URL}${url}`, request);
+export const giteaClient = (url: string, request?: RequestInit) => client(`${env.GITEA_API_URL}${url}`, request);
