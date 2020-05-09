@@ -21,11 +21,11 @@ Pass in the required fields `GITEA_ACCESS_TOKEN` and `GITHUB_ACCESS_TOKEN`. The 
 
 | Name           | Default Value | Description |
 |----------------|---------------| ------------|
-|STARRED         | false         | mirror the users starred repos |
-|REPOS           | false         | mirror the users public repos |
-|CONTRIBUTED_TO  | false         | mirror any repo the user has contributed to  |
-|FETCH_FOLLOWING | false         | grab all users you are following, and fetch STARRED/CONTRIUBTED_TO/REPOS based on enabled fields, only traverses 1 depth|
-|GO_MODE         | false         | disable sandbox/test-mode and migrate the repos|
+|--STARRED         | **false**         | mirror the users starred repos |
+|--REPOS           | **false**         | mirror the users public repos |
+|--CONTRIBUTED_TO  | **false**         | mirror any repo the user has contributed to  |
+|--FETCH_FOLLOWING | **false**         | grab all users you are following, and fetch STARRED/CONTRIUBTED_TO/REPOS based on enabled fields, only traverses 1 depth|
+|--GO_MODE         | **false**         | disable sandbox/test-mode and migrate the repos|
 
 For the full list of passable runtime variables are located in [constants.ts](./src/constants.ts)
 
