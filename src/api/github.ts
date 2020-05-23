@@ -10,7 +10,7 @@ type RepositoryQueryType =
 const repositoryQuery = (queryType: RepositoryQueryType) => (
   `query ($userLogin: String!, $cursor: String) {
   user(login: $userLogin) {
-    ${queryType}(first:10,after:$cursor) {
+    ${queryType}(first:25,after:$cursor) {
       totalCount
       pageInfo {
         endCursor
@@ -29,7 +29,7 @@ const repositoryQuery = (queryType: RepositoryQueryType) => (
 const followingQuery =
   `query ($userLogin: String!, $cursor: String) {
   user(login: $userLogin) {
-    following(first:10,after:$cursor) {
+    following(first:25,after:$cursor) {
       totalCount
       pageInfo {
         endCursor
