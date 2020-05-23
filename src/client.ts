@@ -1,4 +1,4 @@
-import { env } from "./constants.ts";
+import { env } from "src/constants.ts";
 
 const client = (
   url: string,

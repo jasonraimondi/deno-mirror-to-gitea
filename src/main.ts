@@ -1,5 +1,5 @@
-import { env } from "./constants.ts";
-import { paginateFollowing, spiderGitHubUser } from "./api/github.ts";
+import { env } from "src/constants.ts";
+import { paginateFollowing, spiderGitHubUser } from "src/api/github.ts";
 
 for (const username of env._) {
   await spiderGitHubUser(username);

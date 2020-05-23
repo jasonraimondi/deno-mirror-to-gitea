@@ -1,4 +1,8 @@
-import { parse } from "https://deno.land/std/flags/mod.ts";
+import { parse } from "flags/mod.ts";
+
+const foo = parse(Deno.args);
+
+console.log({ foo });
 
 export const env = {
   GITHUB_GRAPHQL_URL: "https://api.github.com/graphql",
@@ -9,6 +13,6 @@ export const env = {
   CONTRIBUTED_TO: false,
   STARRED: false,
   FETCH_FOLLOWING: false,
-  GO_MODE: false,
-  ...parse(Deno.args),
+  DRY_RUN: false,
+  ...foo,
 };

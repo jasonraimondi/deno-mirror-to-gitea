@@ -1,0 +1,8 @@
+{
+   "imports": {
+      "flags/": "https://deno.land/std@0.52.0/flags/",
+      "fmt/": "https://deno.land/std@0.52.0/fmt/",
+      "http/": "https://deno.land/std@0.52.0/http/",
+      "src/": "./src/"
+   }
+}

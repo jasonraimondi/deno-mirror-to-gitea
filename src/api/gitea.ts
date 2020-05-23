@@ -1,5 +1,5 @@
-import { giteaClient } from "../client.ts";
-import { blue, red } from "https://deno.land/std/fmt/colors.ts";
+import { giteaClient } from "src/client.ts";
+import { blue, red } from "fmt/colors.ts";
 
 type Fields = {
   repo_name: string;
@@ -71,7 +71,6 @@ export const createMigration = (fields: Fields) => {
       pull_requests: true,
       releases: true,
       wiki: true,
-      uid: 2,
       ...fields,
     }),
   });
@@ -93,7 +92,11 @@ export const createOrg = async (org: string): Promise<string | undefined> => {
       website: `https://github.com/${org}`,
     }),
   });
-  const { id } = await response.json().catch(console.log);
+  const { id } = await response.json().catch((e: any) => {
+    console.log(red(e.message));
+    console.log(red(`Skipping ${org}`))
+    return { id: undefined };
+  });
   return id;
 };
 
