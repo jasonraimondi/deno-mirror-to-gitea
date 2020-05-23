@@ -46,7 +46,7 @@ const followingQuery =
 
 async function addMirrorForRepo(repoWithUsername: string) {
   const [username, repository] = repoWithUsername.split("/");
-  if (env.GO_MODE.toString() === "true") {
+  if (env.DRY_RUN.toString() === "false") {
     const response = await createMigrationFromGithub(username, repository);
     return [repoWithUsername, response?.status === 201 ? "success" : "fail"];
   }

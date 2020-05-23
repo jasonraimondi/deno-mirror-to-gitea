@@ -15,17 +15,25 @@ I am a [data hoarder](https://www.reddit.com/r/DataHoarder/).
 
 ## Usage
 
-Pass in the required fields `GITEA_ACCESS_TOKEN` and `GITHUB_ACCESS_TOKEN`. The default value for `GITEA_API_URL` is listed below, point to your gitea repository.
+Pass in the required fields:
+
+* `GITEA_ACCESS_TOKEN`
+* `GITHUB_ACCESS_TOKEN`
+
+By default, 
 
 ### Runtime options
 
-| Name           | Default Value | Description |
-|----------------|---------------| ------------|
-|--STARRED         | **false**         | mirror the users starred repos |
-|--REPOS           | **false**         | mirror the users public repos |
-|--CONTRIBUTED_TO  | **false**         | mirror any repo the user has contributed to  |
-|--FETCH_FOLLOWING | **false**         | grab all users you are following, and fetch STARRED/CONTRIUBTED_TO/REPOS based on enabled fields, only traverses 1 depth|
-|--GO_MODE         | **false**         | disable sandbox/test-mode and migrate the repos|
+| Name               | Default Value                 | Description |
+|--------------------|-------------------------------| ------------|
+|GITHUB_ACCESS_TOKEN | <required>                    | <a href="https://github.com/settings/tokens/new?description=deno-mirror-to-gitea&scopes=public_repo" target="_blank" rel="noopener noreferrer">create a github access token</a>  |
+|GITEA_ACCESS_TOKEN  | <required>                    | gitea access token |
+|GITEA_API_URL       | http://localhost:3000/api/v1/ | api url |
+|STARRED             | false                         | mirror the users starred repos |
+|REPOS               | false                         | mirror the users public repos |
+|CONTRIBUTED_TO      | false                         | mirror any repo the user has contributed to  |
+|FETCH_FOLLOWING     | false                         | grab all users you are following, and fetch STARRED/CONTRIUBTED_TO/REPOS based on enabled fields, only traverses 1 depth|
+|DRY_RUN             | true                          | disable sandbox/test-mode and migrate the repos|
 
 For the full list of passable runtime variables are located in [constants.ts](./src/constants.ts)
 
