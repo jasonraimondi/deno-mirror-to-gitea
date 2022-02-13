@@ -1,5 +1,5 @@
-import { giteaClient } from "src/client.ts";
-import { blue, red } from "fmt/colors.ts";
+import { giteaClient } from "../client.ts";
+import { blue, red } from "https://deno.land/std@0.52.0/fmt/colors.ts";
 
 type Fields = {
   repo_name: string;

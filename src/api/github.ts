@@ -1,6 +1,6 @@
-import { githubClient } from "src/client.ts";
-import { createMigrationFromGithub } from "src/api/gitea.ts";
-import { env } from "src/constants.ts";
+import { githubClient } from "../client.ts";
+import { createMigrationFromGithub } from "./gitea.ts";
+import { env } from "../constants.ts";
 
 type RepositoryQueryType =
   | "repositories"
