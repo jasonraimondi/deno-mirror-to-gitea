@@ -33,7 +33,7 @@ export const createMigrationFromGithub = async (user: string, repo: string): Pro
     return;
   }
 
-  let uid = await getOrg(user);
+  let uid = await getOrg(user) ?? await getUser(user);
 
   if (!uid) {
     uid = await createOrg(user);
@@ -102,6 +102,12 @@ export const createOrg = async (org: string): Promise<string | undefined> => {
 
 export const getOrg = async (org: string): Promise<string | undefined> => {
   const response = await giteaClient(`orgs/${org}`);
+  const { id } = await response.json();
+  return id;
+};
+
+export const getUser = async (org: string): Promise<string | undefined> => {
+  const response = await giteaClient(`users/${org}`);
   const { id } = await response.json();
   return id;
 };
