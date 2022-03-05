@@ -1,10 +1,12 @@
 import { giteaClient } from "../client.ts";
+import { env } from "../constants.ts";
 import { blue, red } from "https://deno.land/std@0.52.0/fmt/colors.ts";
 
 type Fields = {
   repo_name: string;
   clone_addr: string;
   uid: number|string;
+  private: boolean;
   auth_password?: string;
   auth_username?: string;
   description?: string;
@@ -27,7 +29,7 @@ type Fields = {
 //   wiki: boolean;
 // };
 
-export const createMigrationFromGithub = async (user: string, repo: string): Promise<Response | undefined> => {
+export const createMigrationFromGithub = async (user: string, repo: string, isPrivate: boolean): Promise<Response | undefined> => {
   if (await doesRepoExist(user, repo)) {
     console.warn(red(`repo already exists (${user}/${repo})`));
     return;
@@ -49,6 +51,7 @@ export const createMigrationFromGithub = async (user: string, repo: string): Pro
       uid,
       repo_name: `${repo}`,
       clone_addr: `https://github.com/${user}/${repo}`,
+      private: isPrivate,
     },
   )
     .then((res) => {
@@ -67,10 +70,10 @@ export const createMigration = (fields: Fields) => {
       labels: true,
       milestones: true,
       mirror: true,
-      private: false,
       pull_requests: true,
       releases: true,
       wiki: true,
+      auth_token: env.GITHUB_ACCESS_TOKEN,
       ...fields,
     }),
   });
