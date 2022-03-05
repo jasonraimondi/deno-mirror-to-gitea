@@ -19,6 +19,7 @@ const repositoryQuery = (queryType: RepositoryQueryType) => (
       edges {
         node {
           nameWithOwner
+          isPrivate
         }
       }
     }
@@ -44,10 +45,10 @@ const followingQuery =
   }
 }`;
 
-async function addMirrorForRepo(repoWithUsername: string) {
+async function addMirrorForRepo({repoWithUsername, isPrivate}: {repoWithUsername: string, isPrivate: boolean}) {
   const [username, repository] = repoWithUsername.split("/");
   if (env.DRY_RUN.toString() === "false") {
-    const response = await createMigrationFromGithub(username, repository);
+    const response = await createMigrationFromGithub(username, repository, isPrivate);
     return [repoWithUsername, response?.status === 201 ? "success" : "fail"];
   }
   console.log("TEST_MODE", username, repository);
@@ -92,7 +93,10 @@ async function* paginateRepositories(
     const { totalCount, pageInfo, edges }: any = jsonResponse?.data?.user?.[queryType];
     console.log({ totalCount });
 
-    const repositories = edges.map(({ node }: any) => node.nameWithOwner);
+    const repositories = edges.map(({ node }: any) => ({
+      repoWithUsername: node.nameWithOwner,
+      isPrivate: node.isPrivate
+    }));
     cursor = pageInfo.endCursor;
 
     for (const repo of repositories) {
