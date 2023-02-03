@@ -68,3 +68,4 @@ docker run --rm jasonraimondi/deno-mirror-to-gitea \
 ## Similar Projects
 
 * https://github.com/jaedle/mirror-to-gitea
+* https://github.com/armcknight/forgery - this project pulls from github to a local filesystem, so if you're not running Gitea, give this one a :eyes:
