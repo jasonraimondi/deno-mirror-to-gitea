@@ -1,6 +1,5 @@
 # Deno Mirror to Gitea
 
-[![Build](https://img.shields.io/docker/cloud/build/jasonraimondi/deno-mirror-to-gitea?style=flat-square)](https://hub.docker.com/r/jasonraimondi/deno-mirror-to-gitea/)
 [![Image Size](https://img.shields.io/docker/image-size/jasonraimondi/deno-mirror-to-gitea?style=flat-square)](https://hub.docker.com/r/jasonraimondi/deno-mirror-to-gitea/)
 [![Pulls](https://img.shields.io/docker/pulls/jasonraimondi/deno-mirror-to-gitea?style=flat-square)](https://hub.docker.com/r/jasonraimondi/deno-mirror-to-gitea/)
 [![Version](https://img.shields.io/docker/v/jasonraimondi/deno-mirror-to-gitea?style=flat-square)](https://hub.docker.com/r/jasonraimondi/deno-mirror-to-gitea/)
